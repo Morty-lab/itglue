@@ -1,0 +1,141 @@
+.checkbox {
+    opacity: 0;
+    position: absolute;
+    display: none !important;
+}
+
+.checkbox-label {
+    background-color: #111;
+    width: 50px;
+    height: 26px;
+    border-radius: 50px;
+    position: relative;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa-moon {color: #f1c40f;}
+.fa-sun {color: #f1bc0f;}
+.checkbox-label .ball {
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+    transform: translateX(24px);
+}
+
+#checkbox {display: none;}
+
+.text-xs {
+    font-size: x-small;
+}
+
+.tab { display: none; }
+.step-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+}
+
+/* Line only between steps, not extending to the edges */
+.step-container::before {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 12%;  /* Start after the first step */
+    width: 76%; /* End before the last step */
+    height: 2px;
+    background-color: #bbbbbb;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+/* Wrappers for steps to break the line */
+.step-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+/* Circular step icons */
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    background-color: var(--bs-body-bg); /* Adapts to dark/light theme */
+    padding: 5px;
+    border-radius: 50%;
+}
+
+/* Icons inside steps */
+.step-icon {
+    height: 30px;
+    width: 30px;
+    background-color: #bbbbbb;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+}
+
+/* Active and finished steps */
+.step-icon.active { opacity: 1; }
+.step-icon.finish { opacity: 1; background-color: #0476aa; }
+
+/* General Dark Theme Styles */
+.dark-theme .form-control,
+.dark-theme .form-select {
+    background-color: #333 !important; /* Dark background */
+    color: #fff !important; /* White text */
+    border: 1px solid #555 !important;
+}
+
+/* Style dropdown options (tricky due to browser limitations) */
+.dark-theme .form-select option {
+    background-color: #444 !important; /* Darker option background */
+    color: #fff !important;
+}
+
+/* Force the select dropdown to have a dark background */
+.dark-theme select {
+    appearance: none; /* Removes default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Workaround for dropdown styling (applies only when open) */
+.dark-theme .form-select:focus {
+    background-color: #444 !important; /* Darker background when opened */
+    color: #fff !important;
+}
+
+/* Force select dropdown menu styling */
+.dark-theme select::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dark-theme select::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+
+.form-control::placeholder {
+    color: #666 !important; /* Slightly darker placeholder text */
+}
