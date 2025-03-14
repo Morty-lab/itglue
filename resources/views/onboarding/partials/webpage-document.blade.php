@@ -103,6 +103,16 @@
                                     name="webpage_document[{{ $index }}][credential_notes]">{{ $webpage->credential_notes ?? '' }}</textarea>
                             </div>
                         </div>
+                            <button type="button" class="btn btn-sm btn-danger mb-2"
+                                onclick="axios.post('{{ route('credentials.destroy', $webpage->id) }}')
+                                    .then(response => {
+                                        window.location.reload();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    })">
+                                Delete
+                            </button>
                     @endforeach
                 @else
                 <div>
@@ -209,35 +219,42 @@
                         </div>
                         <div class="mb-3 w-100">
                             <label class="form-control-sm ps-0">Name</label>
-                            <input class="form-control form-control-sm web-document-input" type="text" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_name]" value="{{ $webpage->credential_name ?? '' }}" required disabled>
+                            <input class="form-control form-control-sm web-document-input" type="text" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_name]" value="" required disabled>
                         </div>
                         <div class="mb-3 w-100">
                             <label class="form-control-sm ps-0">URL</label>
-                            <input class="form-control form-control-sm web-document-input" type="password" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_url]" value="{{ $webpage->credential_url ?? '' }}" required disabled>
+                            <input class="form-control form-control-sm web-document-input" type="password" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_url]" value="" required disabled>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between gap-2">
                         <div class="mb-3 w-100">
                             <label class="form-control-sm ps-0">Username</label>
-                            <input class="form-control form-control-sm web-document-input" type="text" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_username]" value="{{ $webpage->credential_username ?? '' }}" required disabled>
+                            <input class="form-control form-control-sm web-document-input" type="text" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_username]" value="" required disabled>
                         </div>
                         <div class="mb-3 w-100">
                             <label class="form-control-sm ps-0">Password</label>
-                            <input class="form-control form-control-sm web-document-input" type="password" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_password]" value="{{ $webpage->credential_password ?? '' }}" required disabled>
+                            <input class="form-control form-control-sm web-document-input" type="password" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_password]" value="" required disabled>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-control-sm ps-0">MFA/OTP Enabled</label>
-                        <input class="form-control form-control-sm web-document-input" type="text" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_mfa]" value="{{ $webpage->credential_mfa ?? '' }}" required disabled>
+                        <input class="form-control form-control-sm web-document-input" type="text" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_mfa]" value="" required disabled>
                     </div>
                     <div class="mb-3">
                         <label class="form-control-sm ps-0">Notes</label>
-                        <textarea class="form-control form-control-sm web-document-input" rows="3" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_notes]">{{ $webpage->credential_notes ?? '' }}</textarea>
+                        <textarea class="form-control form-control-sm web-document-input" rows="3" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_notes]"></textarea>
                     </div>
+
+                    <button type="button" class="btn btn-danger btn-sm remove-credential mb-2" onclick="this.parentElement.remove();">
+                        Remove Credential
+                    </button>
+
                     `;
                     document.getElementById('credentialInputs').appendChild(newCredential);
                 });
             </script>
+
+
 
 
             <div class="mb-3">

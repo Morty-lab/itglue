@@ -566,7 +566,7 @@ class OnboardingForm extends Controller
 
             // Prepare the data to be saved
             foreach ($request->input('webpage_document') as $webpage) {
-            $credentials = Credentials::where('id', $webpage['id'])->first();
+                $credentials = Credentials::where('id', $webpage['id'])->first();
 
                 $webpage_data = array_merge(
                     $webpage,
@@ -804,6 +804,22 @@ class OnboardingForm extends Controller
 
         return redirect()->back()->with('success', 'Form submitted successfully!');
     }
+
+    public function destroy_credentials(string $id)
+    {
+        try {
+            $credentials = Credentials::findOrFail($id);
+            $credentials->delete();
+
+            Log::info('Credentials deleted successfully', ['id' => $id]);
+
+            return redirect()->back()->with('success', 'Credentials deleted successfully!');
+        } catch (\Throwable $th) {
+            Log::error('Failed to delete Credentials', ['error' => $th->getMessage()]);
+            return redirect()->back()->withErrors('Failed to delete Credentials: ' . $th->getMessage());
+        }
+    }
+
 
     public function show(string $id)
     {

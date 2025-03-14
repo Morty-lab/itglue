@@ -102,6 +102,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/webpages/{id}/edit', [CompanyDetailsController::class, 'edit'])->name('webpages.edit');
     Route::put('/webpages/update-multiple-fields', [CompanyDetailsController::class, 'updateMultipleFields'])->name('webpages.update-multiple-fields');
     Route::delete('/webpages/{id}', [CompanyDetailsController::class, 'destroy'])->name('webpages.destroy');
+    Route::post('/credentials/{id}', [OnboardingForm::class, 'destroy_credentials'])->name('credentials.destroy');
 });
 
 
