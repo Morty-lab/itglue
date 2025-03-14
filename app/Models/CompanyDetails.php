@@ -19,13 +19,6 @@ class CompanyDetails extends Model
         'devices',
         'branches',
         'software_licenses',
-        'credential_type',
-        'credential_name',
-        'credential_url',
-        'credential_username',
-        'credential_password',
-        'credential_mfa',
-        'credential_notes',
         'attachments'
     ];
 

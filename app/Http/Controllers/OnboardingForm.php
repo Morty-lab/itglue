@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Branch;
 use App\Models\CompanyDetails;
 use App\Models\CompanyInformation;
+use App\Models\Credentials;
 use App\Models\DeviceInformation;
 use App\Models\EmployeeInformation;
 use App\Models\License;
@@ -97,11 +98,11 @@ class OnboardingForm extends Controller
     public function webpage_development()
     {
         $user_id = Auth::id();
-        $webpage_documents = CompanyDetails::where('user_id', $user_id)->first();
+        $webpage_documents = Credentials::where('user_id', $user_id)->get();
 
         // If no record exists, create an empty object to prevent null reference errors
         if (!$webpage_documents) {
-            $webpage_documents = new CompanyDetails();
+            $webpage_documents = new Credentials();
             $webpage_documents->credential_type = null;
         }
 
@@ -122,9 +123,10 @@ class OnboardingForm extends Controller
             'has_documents' => !is_null($webpage_documents),
             'attachment_count' => count($webpage_attachments)
         ]);
+        // dd($webpage_documents);
 
         return view('onboarding.partials.webpage-document', [
-            'webpage' => $webpage_documents,
+            'webpages' => $webpage_documents,
             'webpage_attachments' => $webpage_attachments
         ]);
     }
@@ -557,25 +559,36 @@ class OnboardingForm extends Controller
     {
         $attachmentPaths = [];
 
+        // dd($request->all());
+
         try {
             $user_id = Auth::id();
 
-            // Try to find an existing record first
-            $company_details = CompanyDetails::where('user_id', $user_id)->first();
-
             // Prepare the data to be saved
-            $webpage_data = array_merge(
-                $request->input('webpage_document'),
-                ["user_id" => $user_id]
-            );
+            foreach ($request->input('webpage_document') as $webpage) {
+            $credentials = Credentials::where('id', $webpage['id'])->first();
 
-            if ($company_details) {
-                // Update existing record
-                $company_details->update($webpage_data);
-            } else {
-                // Create new record
-                $company_details = CompanyDetails::create($webpage_data);
+                $webpage_data = array_merge(
+                    $webpage,
+                    ["user_id" => $user_id]
+                );
+
+                // dd($webpage_data);
+
+                if ($credentials) {
+                    // Update existing record
+                    $credentials->update($webpage_data);
+                } else {
+                    // Create new record
+                    $credentials = Credentials::create($webpage_data);
+                }
+
+                Log::info('Webpage development processing complete', [
+                    'webpage_id' => $credentials->id,
+                    'attachment_count' => count($attachmentPaths)
+                ]);
             }
+
 
             // Handle File Uploads
             if ($request->hasFile('webpage_files')) {
@@ -612,10 +625,7 @@ class OnboardingForm extends Controller
                 }
             }
 
-            Log::info('Webpage development processing complete', [
-                'webpage_id' => $company_details->id,
-                'attachment_count' => count($attachmentPaths)
-            ]);
+
         } catch (\Throwable $th) {
             Log::error('Error adding webpage development', [
                 'error' => $th->getMessage(),
