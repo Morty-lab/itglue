@@ -132,352 +132,176 @@
                                 aria-labelledby="company-tab">
                                 <div class="p-3">
                                     @if ($company)
-                                        {{-- <div class="row">
-                                        <div class="col-md-6">
-                                            <!-- Company Name - Editable -->
-                                            <div class="mb-3 editable-field position-relative">
-                                                <label class="form-label fw-bold">Company Name</label>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="view-mode">{{ $company->company_name }}</span>
-                                                    <input type="text"
-                                                        class="form-control edit-mode"
-                                                        value="{{ $company->company_name }}"
-                                                        style="display:none;">
-                                                    <button class="btn btn-link edit-btn ms-2">
-                                                        <i class="fas fa-pencil-alt text-muted"></i>
-                                                    </button>
-                                                    <button class="btn btn-link save-btn ms-2"
-                                                            data-field="company_name"
-                                                            style="display:none;">
-                                                        <i class="fas fa-save text-success"></i>
-                                                    </button>
-                                                    <button class="btn btn-link cancel-btn ms-2"
-                                                            style="display:none;">
-                                                        <i class="fas fa-times text-danger"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                        <form action="{{ route('admin.company.update-multiple-fields', ['user_id' => $user->id]) }}"
+                                            method="post" id="companyForm">
+                                            @csrf
+                                            @method('PUT')
 
-                                            <!-- Primary Number - Editable -->
-                                            <div class="mb-3 editable-field position-relative">
-                                                <label class="form-label fw-bold">Primary Number</label>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="view-mode">{{ $company->primary_number }}</span>
-                                                    <input type="text"
-                                                        class="form-control edit-mode"
-                                                        value="{{ $company->primary_number }}"
-                                                        style="display:none;">
-                                                    <button class="btn btn-link edit-btn ms-2">
-                                                        <i class="fas fa-pencil-alt text-muted"></i>
-                                                    </button>
-                                                    <button class="btn btn-link save-btn ms-2"
-                                                            data-field="primary_number"
-                                                            style="display:none;">
-                                                        <i class="fas fa-save text-success"></i>
-                                                    </button>
-                                                    <button class="btn btn-link cancel-btn ms-2"
-                                                            style="display:none;">
-                                                        <i class="fas fa-times text-danger"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            <!-- Secondary Number - Editable -->
-                                            <div class="mb-3 editable-field position-relative">
-                                                <label class="form-label fw-bold">Secondary Number</label>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="view-mode">{{ $company->secondary_number ?: 'N/A' }}</span>
-                                                    <input type="text"
-                                                        class="form-control edit-mode"
-                                                        value="{{ $company->secondary_number }}"
-                                                        style="display:none;">
-                                                    <button class="btn btn-link edit-btn ms-2">
-                                                        <i class="fas fa-pencil-alt text-muted"></i>
-                                                    </button>
-                                                    <button class="btn btn-link save-btn ms-2"
-                                                            data-field="secondary_number"
-                                                            style="display:none;">
-                                                        <i class="fas fa-save text-success"></i>
-                                                    </button>
-                                                    <button class="btn btn-link cancel-btn ms-2"
-                                                            style="display:none;">
-                                                        <i class="fas fa-times text-danger"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            <!-- HQ Address - Editable -->
-                                            <div class="mb-3 editable-field position-relative">
-                                                <label class="form-label fw-bold">HQ Address</label>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="view-mode">{{ $company->hq_address }}</span>
-                                                    <input type="text"
-                                                        class="form-control edit-mode"
-                                                        value="{{ $company->hq_address }}"
-                                                        style="display:none;">
-                                                    <button class="btn btn-link edit-btn ms-2">
-                                                        <i class="fas fa-pencil-alt text-muted"></i>
-                                                    </button>
-                                                    <button class="btn btn-link save-btn ms-2"
-                                                            data-field="hq_address"
-                                                            style="display:none;">
-                                                        <i class="fas fa-save text-success"></i>
-                                                    </button>
-                                                    <button class="btn btn-link cancel-btn ms-2"
-                                                            style="display:none;">
-                                                        <i class="fas fa-times text-danger"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- HQ Phone - Editable -->
-                                            <div class="mb-3 editable-field position-relative">
-                                                <label class="form-label fw-bold">HQ Phone</label>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="view-mode">{{ $company->hq_phone }}</span>
-                                                    <input type="text"
-                                                        class="form-control edit-mode"
-                                                        value="{{ $company->hq_phone }}"
-                                                        style="display:none;">
-                                                    <button class="btn btn-link edit-btn ms-2">
-                                                        <i class="fas fa-pencil-alt text-muted"></i>
-                                                    </button>
-                                                    <button class="btn btn-link save-btn ms-2"
-                                                            data-field="hq_phone"
-                                                            style="display:none;">
-                                                        <i class="fas fa-save text-success"></i>
-                                                    </button>
-                                                    <button class="btn btn-link cancel-btn ms-2"
-                                                            style="display:none;">
-                                                        <i class="fas fa-times text-danger"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            <!-- Fax - Editable -->
-                                            <div class="mb-3 editable-field position-relative">
-                                                <label class="form-label fw-bold">Fax</label>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="view-mode">{{ $company->hq_fax ?: 'N/A' }}</span>
-                                                    <input type="text"
-                                                        class="form-control edit-mode"
-                                                        value="{{ $company->hq_fax }}"
-                                                        style="display:none;">
-                                                    <button class="btn btn-link edit-btn ms-2">
-                                                        <i class="fas fa-pencil-alt text-muted"></i>
-                                                    </button>
-                                                    <button class="btn btn-link save-btn ms-2"
-                                                            data-field="hq_fax"
-                                                            style="display:none;">
-                                                        <i class="fas fa-save text-success"></i>
-                                                    </button>
-                                                    <button class="btn btn-link cancel-btn ms-2"
-                                                            style="display:none;">
-                                                        <i class="fas fa-times text-danger"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            <!-- Website - Editable -->
-                                            <div class="mb-3 editable-field position-relative">
-                                                <label class="form-label fw-bold">Website</label>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="view-mode">{{ $company->hq_website ?: 'N/A' }}</span>
-                                                    <input type="text"
-                                                        class="form-control edit-mode"
-                                                        value="{{ $company->hq_website }}"
-                                                        style="display:none;">
-                                                    <button class="btn btn-link edit-btn ms-2">
-                                                        <i class="fas fa-pencil-alt text-muted"></i>
-                                                    </button>
-                                                    <button class="btn btn-link save-btn ms-2"
-                                                            data-field="hq_website"
-                                                            style="display:none;">
-                                                        <i class="fas fa-save text-success"></i>
-                                                    </button>
-                                                    <button class="btn btn-link cancel-btn ms-2"
-                                                            style="display:none;">
-                                                        <i class="fas fa-times text-danger"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            <!-- Office Hours - Editable -->
-                                            <div class="mb-3 editable-field position-relative">
-                                                <label class="form-label fw-bold">Office Hours</label>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="view-mode">{{ $company->hq_opening_time }} - {{ $company->hq_closing_time }}</span>
-                                                    <div class="input-group edit-mode" style="display:none;">
-                                                        <input type="text"
-                                                            class="form-control"
-                                                            value="{{ $company->hq_opening_time }}"
-                                                            placeholder="Opening Time">
-                                                        <input type="text"
-                                                            class="form-control"
-                                                            value="{{ $company->hq_closing_time }}"
-                                                            placeholder="Closing Time">
-                                                        <button class="btn btn-link edit-btn ms-2">
-                                                            <i class="fas fa-pencil-alt text-muted"></i>
-                                                        </button>
-                                                        <button class="btn btn-link save-btn ms-2"
-                                                                data-field="office_hours"
-                                                                style="display:none;">
-                                                            <i class="fas fa-save text-success"></i>
-                                                        </button>
-                                                        <button class="btn btn-link cancel-btn ms-2"
-                                                                style="display:none;">
-                                                            <i class="fas fa-times text-danger"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                        <div class="row">
-                                            <!-- Left Column: Company Information -->
-                                            <div class="col-md-6">
-                                                <!-- Company Name -->
-                                                <div class="mb-4 editable-field">
-                                                    <label class="text-lg font-bold block mb-2">Company Name</label>
-                                                    <div class="flex items-center space-x-2">
-                                                        <span
-                                                            class="view-mode text-base font-medium">{{ $company->company_name }}</span>
-                                                        <input type="text"
-                                                            class="form-input edit-mode hidden w-full p-2 border rounded-md"
-                                                            value="{{ $company->company_name }}">
-                                                    </div>
-                                                </div>
-
-                                                <!-- Contact Information -->
-                                                <div class="mb-4">
-                                                    <label class="text-lg font-bold block mb-2">Contact Information</label>
-                                                    <div class="space-y-4">
-                                                        <!-- Primary Number -->
-                                                        <div class="editable-field">
-                                                            <label class="text-sm font-semibold">Primary Number:</label>
+                                            <div class="row">
+                                                <!-- Left Column: Company Information -->
+                                                <div class="col-md-6">
+                                                    <!-- Company Name -->
+                                                    <div class="mb-4 editable-field">
+                                                        <label class="text-lg font-bold block mb-2">Company Name</label>
+                                                        <div class="flex items-center space-x-2">
                                                             <span
-                                                                class="view-mode text-base font-medium">{{ $company->primary_number }}</span>
+                                                                class="view-mode text-base font-medium">{{ $company->company_name }}</span>
                                                             <input type="text"
                                                                 class="form-input edit-mode hidden w-full p-2 border rounded-md"
-                                                                value="{{ $company->primary_number }}">
-                                                        </div>
-
-                                                        <!-- Secondary Number -->
-                                                        <div class="editable-field">
-                                                            <label class="text-sm font-semibold">Secondary Number:</label>
-                                                            <span
-                                                                class="view-mode text-base font-medium">{{ $company->secondary_number ?: 'N/A' }}</span>
-                                                            <input type="text"
-                                                                class="form-input edit-mode hidden w-full p-2 border rounded-md"
-                                                                value="{{ $company->secondary_number }}">
-                                                        </div>
-
-                                                        <!-- HQ Fax -->
-                                                        <div class="editable-field">
-                                                            <label class="text-sm font-semibold">HQ Fax:</label>
-                                                            <span
-                                                                class="view-mode text-base font-medium">{{ $company->hq_fax ?: 'N/A' }}</span>
-                                                            <input type="text"
-                                                                class="form-input edit-mode hidden w-full p-2 border rounded-md"
-                                                                value="{{ $company->hq_fax }}">
+                                                                value="{{ $company->company_name }}"
+                                                                name="companies[company_name]">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- Office Hours -->
-                                                <div class="mb-4 editable-field">
-                                                    <label class="text-lg font-bold block mb-2">Office Hours</label>
-                                                    <div class="flex items-center space-x-2">
-                                                        <span
-                                                            class="view-mode text-base font-medium">{{ $company->hq_opening_time }}
-                                                            - {{ $company->hq_closing_time }}</span>
-                                                        <div class="input-group edit-mode hidden flex space-x-2 w-full">
-                                                            <input type="text"
-                                                                class="form-input w-1/2 p-2 border rounded-md"
-                                                                value="{{ $company->hq_opening_time }}"
-                                                                placeholder="Opening Time">
-                                                            <input type="text"
-                                                                class="form-input w-1/2 p-2 border rounded-md"
-                                                                value="{{ $company->hq_closing_time }}"
-                                                                placeholder="Closing Time">
+
+                                                    <!-- Contact Information -->
+                                                    <div class="mb-4">
+                                                        <label class="text-lg font-bold block mb-2">Contact
+                                                            Information</label>
+                                                        <div class="space-y-4">
+                                                            <!-- Primary Number -->
+                                                            <div class="editable-field">
+                                                                <label class="text-sm font-semibold">Primary
+                                                                    Number:</label>
+                                                                <span
+                                                                    class="view-mode text-base font-medium">{{ $company->primary_number }}</span>
+                                                                <input type="text"
+                                                                    class="form-input edit-mode hidden w-full p-2 border rounded-md"
+                                                                    value="{{ $company->primary_number }}"
+                                                                    name="companies[primary_number]">
+                                                            </div>
+
+                                                            <!-- Secondary Number -->
+                                                            <div class="editable-field">
+                                                                <label class="text-sm font-semibold">Secondary
+                                                                    Number:</label>
+                                                                <span
+                                                                    class="view-mode text-base font-medium">{{ $company->secondary_number ?: 'N/A' }}</span>
+                                                                <input type="text"
+                                                                    class="form-input edit-mode hidden w-full p-2 border rounded-md"
+                                                                    value="{{ $company->secondary_number }}"
+                                                                    name="companies[secondary_number]">
+                                                            </div>
+
+                                                            <!-- HQ Fax -->
+                                                            <div class="editable-field">
+                                                                <label class="text-sm font-semibold">HQ Fax:</label>
+                                                                <span
+                                                                    class="view-mode text-base font-medium">{{ $company->hq_fax ?: 'N/A' }}</span>
+                                                                <input type="text"
+                                                                    class="form-input edit-mode hidden w-full p-2 border rounded-md"
+                                                                    value="{{ $company->hq_fax }}"
+                                                                    name="companies[hq_fax]">
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <!-- Office Hours -->
+                                                    <div class="mb-4 editable-field">
+                                                        <label class="text-lg font-bold block mb-2">Office Hours</label>
+                                                        <div class="flex items-center space-x-2">
+                                                            <span
+                                                                class="view-mode text-base font-medium">{{ $company->hq_opening_time }}
+                                                                - {{ $company->hq_closing_time }}</span>
+                                                            <div
+                                                                class="input-group edit-mode hidden flex space-x-2 w-full">
+                                                                <input type="text"
+                                                                    class="form-input w-1/2 p-2 border rounded-md"
+                                                                    value="{{ $company->hq_opening_time }}"
+                                                                    placeholder="Opening Time"
+                                                                    name="companies[hq_opening_time]">
+                                                                <input type="text"
+                                                                    class="form-input w-1/2 p-2 border rounded-md"
+                                                                    value="{{ $company->hq_closing_time }}"
+                                                                    placeholder="Closing Time"
+                                                                    name="companies[hq_closing_time]">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
                                                 </div>
 
+                                                <!-- Right Column: Additional Information -->
+                                                <div class="col-md-6">
+                                                    <!-- Address and Website -->
+                                                    <div class="mb-3">
 
+                                                        <!-- Address Section -->
+                                                        <div class="editable-field bg-gray-100 p-4 rounded-lg">
+                                                            <span class="view-mode block">
+                                                                <span
+                                                                    class="text-xl font-semibold">{{ $company->hq_location_name }}</span><br>
+                                                                <span
+                                                                    class="text-lg">{{ $company->hq_address }}</span><br>
+                                                                <span class="text-lg">{{ $company->hq_city }},
+                                                                    {{ $company->hq_state }}
+                                                                    {{ $company->hq_postal_code }}</span><br>
+                                                                <span
+                                                                    class="text-lg">{{ $company->hq_country }}</span><br>
+                                                                <span class="text-lg">{{ $company->hq_province }}</span>
+                                                            </span>
 
+                                                            <!-- Address Edit Mode -->
+                                                            <div class="edit-mode hidden">
+                                                                <label class="form-label text-sm">Location Name:</label>
+                                                                <input type="text"
+                                                                    class="form-control border p-2 rounded w-full"
+                                                                    value="{{ $company->hq_location_name }}"
+                                                                    name="companies[hq_location_name]">
+
+                                                                <label class="form-label text-sm">Address:</label>
+                                                                <input type="text"
+                                                                    class="form-control border p-2 rounded w-full"
+                                                                    value="{{ $company->hq_address }}"
+                                                                    name="companies[hq_address]">
+
+                                                                <label class="form-label text-sm">City:</label>
+                                                                <input type="text"
+                                                                    class="form-control border p-2 rounded w-full"
+                                                                    value="{{ $company->hq_city }}"
+                                                                    name="companies[hq_city]">
+
+                                                                <label class="form-label text-sm">State:</label>
+                                                                <input type="text"
+                                                                    class="form-control border p-2 rounded w-full"
+                                                                    value="{{ $company->hq_state }}"
+                                                                    name="companies[hq_state]">
+
+                                                                <label class="form-label text-sm">Postal Code:</label>
+                                                                <input type="text"
+                                                                    class="form-control border p-2 rounded w-full"
+                                                                    value="{{ $company->hq_postal_code }}"
+                                                                    name="companies[hq_postal_code]">
+
+                                                                <label class="form-label text-sm">Country:</label>
+                                                                <input type="text"
+                                                                    class="form-control border p-2 rounded w-full"
+                                                                    value="{{ $company->hq_country }}"
+                                                                    name="companies[hq_country]">
+
+                                                                <label class="form-label text-sm">Province:</label>
+                                                                <input type="text"
+                                                                    class="form-control border p-2 rounded w-full"
+                                                                    value="{{ $company->hq_province }}"
+                                                                    name="companies[hq_province]">
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Website Section -->
+                                                        <div class="editable-field mt-4 bg-gray-100 p-4 rounded-lg">
+                                                            <label class="form-label font-semibold">Company Website</label>
+                                                            <span
+                                                                class="view-mode block text-lg font-medium">{{ $company->hq_website ?: 'N/A' }}</span>
+                                                            <input type="text"
+                                                                class="form-control edit-mode border p-2 rounded w-full hidden"
+                                                                value="{{ $company->hq_website }}"
+                                                                name="companies[hq_website]">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
-
-                                            <!-- Right Column: Additional Information -->
-                                            <div class="col-md-6">
-                                                <!-- Address and Website -->
-                                                <div class="mb-3">
-
-                                                    <!-- Address Section -->
-                                                    <div class="editable-field bg-gray-100 p-4 rounded-lg">
-                                                        <span class="view-mode block">
-                                                            <span
-                                                                class="text-xl font-semibold">{{ $company->hq_location_name }}</span><br>
-                                                            <span class="text-lg">{{ $company->hq_address }}</span><br>
-                                                            <span class="text-lg">{{ $company->hq_city }},
-                                                                {{ $company->hq_state }}
-                                                                {{ $company->hq_postal_code }}</span><br>
-                                                            <span class="text-lg">{{ $company->hq_country }}</span><br>
-                                                            <span class="text-lg">{{ $company->hq_province }}</span>
-                                                        </span>
-
-                                                        <!-- Address Edit Mode -->
-                                                        <div class="edit-mode hidden">
-                                                            <label class="form-label text-sm">Location Name:</label>
-                                                            <input type="text"
-                                                                class="form-control border p-2 rounded w-full"
-                                                                value="{{ $company->hq_location_name }}">
-
-                                                            <label class="form-label text-sm">Address:</label>
-                                                            <input type="text"
-                                                                class="form-control border p-2 rounded w-full"
-                                                                value="{{ $company->hq_address }}">
-
-                                                            <label class="form-label text-sm">City:</label>
-                                                            <input type="text"
-                                                                class="form-control border p-2 rounded w-full"
-                                                                value="{{ $company->hq_city }}">
-
-                                                            <label class="form-label text-sm">State:</label>
-                                                            <input type="text"
-                                                                class="form-control border p-2 rounded w-full"
-                                                                value="{{ $company->hq_state }}">
-
-                                                            <label class="form-label text-sm">Postal Code:</label>
-                                                            <input type="text"
-                                                                class="form-control border p-2 rounded w-full"
-                                                                value="{{ $company->hq_postal_code }}">
-
-                                                            <label class="form-label text-sm">Country:</label>
-                                                            <input type="text"
-                                                                class="form-control border p-2 rounded w-full"
-                                                                value="{{ $company->hq_country }}">
-
-                                                            <label class="form-label text-sm">Province:</label>
-                                                            <input type="text"
-                                                                class="form-control border p-2 rounded w-full"
-                                                                value="{{ $company->hq_province }}">
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Website Section -->
-                                                    <div class="editable-field mt-4 bg-gray-100 p-4 rounded-lg">
-                                                        <label class="form-label font-semibold">Company Website</label>
-                                                        <span
-                                                            class="view-mode block text-lg font-medium">{{ $company->hq_website ?: 'N/A' }}</span>
-                                                        <input type="text"
-                                                            class="form-control edit-mode border p-2 rounded w-full hidden"
-                                                            value="{{ $company->hq_website }}">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                        </form>
                                     @else
                                         <div class="alert alert-warning">
                                             No company information has been submitted yet.
@@ -558,74 +382,84 @@
                                 updatedFields[field] = value;
                             }
                         });
+
+                        companyInfoSection.querySelectorAll('.edit-mode').forEach(input => {
+                            input.style.display = 'none';
+                        });
+                        companyInfoSection.querySelectorAll('.view-mode').forEach(viewMode => {
+                            viewMode.style.display = 'block';
+                        });
                         // Only proceed if we have fields to update
-                        if (Object.keys(updatedFields).length === 0) {
-                            alert('No changes to save');
-                            return;
-                        }
-                        const requestData = {
-                            companies: [{
-                                user_id: userId, // Ensure this is the correct company ID
-                                fields: updatedFields // Ensure this is an object like { "name": "New Name" }
-                            }]
-                        };
+                        // if (Object.keys(updatedFields).length === 0) {
+                        //     alert('No changes to save');
+                        //     return;
+                        // }
+                        // const requestData = {
+                        //     companies: [{
+                        //         user_id: userId, // Ensure this is the correct company ID
+                        //         fields: updatedFields // Ensure this is an object like { "name": "New Name" }
+                        //     }]
+                        // };
 
-                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content');
-                        fetch(`{{ route('admin.company.update-multiple-fields') }}`, {
+                        // const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute(
+                        //     'content');
+                        // fetch(`{{ route('admin.company.update-multiple-fields') }}`, {
 
-                                method: 'PUT',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Accept': 'application/json',
-                                    'X-CSRF-TOKEN': csrfToken
-                                },
-                                body: JSON.stringify(requestData)
-                            })
-                            .then(response => {
-                                // Check if response is successful
-                                if (!response.ok) {
-                                    throw new Error(`HTTP error! status: ${response.status}`);
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                if (data.success) {
-                                    // Update view modes with new values
-                                    Object.keys(updatedFields).forEach(field => {
-                                        const fieldContainer = companyInfoSection.querySelector(
-                                            `[data-field="${field}"]`);
-                                        if (fieldContainer) {
-                                            const viewMode = fieldContainer.closest(
-                                                '.editable-field').querySelector(
-                                                '.view-mode');
-                                            const input = fieldContainer.closest(
-                                                '.editable-field').querySelector(
-                                                '.edit-mode');
+                        //         method: 'PUT',
+                        //         headers: {
+                        //             'Content-Type': 'application/json',
+                        //             'Accept': 'application/json',
+                        //             'X-CSRF-TOKEN': csrfToken
+                        //         },
+                        //         body: JSON.stringify(requestData)
+                        //     })
+                        //     .then(response => {
+                        //         // Check if response is successful
+                        //         if (!response.ok) {
+                        //             throw new Error(`HTTP error! status: ${response.status}`);
+                        //         }
+                        //         return response.json();
+                        //     })
+                        //     .then(data => {
+                        //         if (data.success) {
+                        //             // Update view modes with new values
+                        //             Object.keys(updatedFields).forEach(field => {
+                        //                 const fieldContainer = companyInfoSection.querySelector(
+                        //                     `[data-field="${field}"]`);
+                        //                 if (fieldContainer) {
+                        //                     const viewMode = fieldContainer.closest(
+                        //                         '.editable-field').querySelector(
+                        //                         '.view-mode');
+                        //                     const input = fieldContainer.closest(
+                        //                         '.editable-field').querySelector(
+                        //                         '.edit-mode');
 
-                                            if (viewMode && input) {
-                                                viewMode.textContent = updatedFields[field] ||
-                                                    'N/A';
-                                                viewMode.style.display = 'block';
-                                                input.style.display = 'none';
-                                            }
-                                        }
-                                    });
+                        //                     if (viewMode && input) {
+                        //                         viewMode.textContent = updatedFields[field] ||
+                        //                             'N/A';
+                        //                         viewMode.style.display = 'block';
+                        //                         input.style.display = 'none';
+                        //                     }
+                        //                 }
+                        //             });
 
-                                    // Reset button
+                        //             // Reset button
                                     this.classList.remove('btn-success');
                                     this.classList.add('btn-primary');
                                     this.innerHTML = '<i class="fas fa-pencil-alt"></i> Edit All';
                                     isEditMode = false;
-                                } else {
-                                    console.error('Update failed:', data);
-                                    alert(data.message || 'Update failed');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert(`An error occurred: ${error.message}`);
-                            });
+
+                                    document.getElementById('companyForm').submit();
+
+                        //         } else {
+                        //             console.error('Update failed:', data);
+                        //             alert(data.message || 'Update failed');
+                        //         }
+                        //     })
+                        //     .catch(error => {
+                        //         console.error('Error:', error);
+                        //         alert(`An error occurred: ${error.message}`);
+                        //     });
                     }
                 });
             }
