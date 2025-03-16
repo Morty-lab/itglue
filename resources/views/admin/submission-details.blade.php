@@ -321,7 +321,7 @@
                             <x-modal-update-licenses :licenses="$licenses" />
 
                             <!-- Webpage and Credentials Tab -->
-                            <x-modal-update-webpage-credentials :company="$webpage" />
+                            <x-modal-update-webpage-credentials :webpages="$webpages" />
                         </div>
                     </div>
                 </div>

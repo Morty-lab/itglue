@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Credentials;
 use App\Models\User;
 use App\Models\CompanyInformation;
 use App\Models\EmployeeInformation;
@@ -92,7 +93,7 @@ class DashboardController extends Controller
         $devices = DeviceInformation::where('user_id', $userId)->get();
         $licenses = License::where('user_id', $userId)->get();
         $branches = Branch::where('user_id', $userId)->get();
-        $webpage = CompanyDetails::where('user_id', $userId)->first();
+        $webpage = Credentials::where('user_id', $userId)->get();
 
         // dd($licenses);
 
@@ -108,6 +109,7 @@ class DashboardController extends Controller
         if (!is_array($license_attachments)) $license_attachments = [$license_attachments];
         if (!is_array($webpage_attachments)) $webpage_attachments = [$webpage_attachments];
 
+
         return view('admin.submission-details', [
             'user' => $user,
             'company' => $company,
@@ -115,7 +117,7 @@ class DashboardController extends Controller
             'devices' => $devices,
             'licenses' => $licenses,
             'branches' => $branches,
-            'webpage' => $webpage,
+            'webpages' => $webpage,
             'employee_attachments' => array_filter($employee_attachments),
             'device_attachments' => array_filter($device_attachments),
             'license_attachments' => array_filter($license_attachments),

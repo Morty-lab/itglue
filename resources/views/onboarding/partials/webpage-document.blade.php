@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="mb-3 w-100">
                                     <label class="form-control-sm ps-0">URL</label>
-                                    <input class="form-control form-control-sm web-document-input" type="password"
+                                    <input class="form-control form-control-sm web-document-input" type="text"
                                         name="webpage_document[{{ $index }}][credential_url]"
                                         value="{{ $webpage->credential_url ?? '' }}" required disabled>
                                 </div>
@@ -152,7 +152,7 @@
                         </div>
                         <div class="mb-3 w-100">
                             <label class="form-control-sm ps-0">URL</label>
-                            <input class="form-control form-control-sm web-document-input" type="password"
+                            <input class="form-control form-control-sm web-document-input" type="text"
                                 name="webpage_document[0][credential_url]" value="" required disabled>
                         </div>
                     </div>
@@ -223,7 +223,7 @@
                         </div>
                         <div class="mb-3 w-100">
                             <label class="form-control-sm ps-0">URL</label>
-                            <input class="form-control form-control-sm web-document-input" type="password" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_url]" value="" required disabled>
+                            <input class="form-control form-control-sm web-document-input" type="text" name="webpage_document[${document.getElementById('credentialInputs').children.length}][credential_url]" value="" required disabled>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between gap-2">

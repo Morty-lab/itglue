@@ -1,6 +1,6 @@
 <div class="tab-pane fade" id="webpage" role="tabpanel" aria-labelledby="webpage-tab">
     <div class="p-3">
-        @if($company)
+        @if($webpages->count() > 0)
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead>
@@ -15,19 +15,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-webpage-id="{{ $company->id }}" class="webpage-row">
-                            <td>{{ $company->credential_type }}</td>
-                            <td>{{ $company->credential_name }}</td>
-                            <td>{{ $company->credential_url }}</td>
-                            <td>{{ $company->credential_username }}</td>
-                            <td>{{ $company->credential_mfa }}</td>
-                            <td>{{ $company->credential_notes }}</td>
+                        @foreach($webpages as $webpage)
+                        @php
+                            $credential_types = [
+                                '1' => 'Domain Registrar',
+                                '2' => 'Web Hosting Provider',
+                                '3' => 'DNS Provider',
+                                '4' => 'Microsoft Admin',
+                                '5' => 'Google Admin',
+                                '6' => 'AWS Admin',
+                                '7' => 'Security Cameras',
+                                '8' => 'Access Control',
+                                '9' => 'Cloud',
+                                '10' => 'Vendor',
+                                '11' => 'Telephony',
+                                '12' => 'Machine Accounts',
+                                '13' => 'Meraki',
+                                '14' => 'Web/FTP',
+                                '15' => 'SQL',
+                                '16' => 'WiFi',
+                                '17' => 'Other',
+                            ]
+
+                        @endphp
+                        <tr data-webpage-id="{{ $webpage->id }}" class="webpage-row">
+                            <td>{{ $credential_types[$webpage->credential_type] }}</td>
+                            <td>{{ $webpage->credential_name }}</td>
+                            <td>{{ $webpage->credential_url }}</td>
+                            <td>{{ $webpage->credential_username }}</td>
+                            <td>{{ $webpage->credential_mfa }}</td>
+                            <td>{{ $webpage->credential_notes }}</td>
                             <td>
-                                <button class="btn btn-sm btn-outline-primary edit-webpage-btn" data-toggle="modal" data-target="#editWebpageModal" data-webpage="{{ json_encode($company) }}">
+                                <button class="btn btn-sm btn-outline-primary edit-webpage-btn" data-toggle="modal" data-target="#editWebpageModal" data-webpage="{{ json_encode($webpage) }}">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
