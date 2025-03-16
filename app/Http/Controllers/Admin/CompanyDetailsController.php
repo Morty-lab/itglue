@@ -3,36 +3,32 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\CompanyDetails;
+use App\Models\Credentials;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class CompanyDetailsController extends Controller
 {
-    /**
-     * Update the specified company details.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function updateMultipleFields(Request $request)
     {
         try {
             Log::info('WebpageCredential UpdateMultipleFields Request', [
                 'input' => $request->all()
             ]);
+            // dd($request->all());
 
             // Validate input
             $validatedData = $request->validate([
-                'id' => 'required|exists:company_details,id',
+                'id' => 'required|exists:credentials,id',
                 'data' => 'required|array'
             ]);
 
             // Find the webpage credential by ID
-            $webpageCredential = CompanyDetails::findOrFail($validatedData['id']);
+            $webpageCredential = Credentials::findOrFail($validatedData['id']);
 
             // Remove any null or empty values
-            $updateData = array_filter($validatedData['data'], function($value) {
+            $updateData = array_filter($validatedData['data'], function ($value) {
                 return $value !== null && $value !== '';
             });
 
@@ -43,32 +39,31 @@ class CompanyDetailsController extends Controller
                 'webpage_credential_id' => $webpageCredential->id,
                 'updated_fields' => array_keys($updateData)
             ]);
-
-            return response()->json([
+            return redirect()->back()->with([
                 'success' => true,
-                'message' => 'Updated successfully',
-                'updated_data' => $updateData
+                'message' => 'Credentials Updated successfully',
+                'active_tab' => 'webpage-tab'
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('WebpageCredential UpdateMultipleFields Validation Error', [
                 'errors' => $e->errors()
             ]);
 
-            return response()->json([
+            return redirect()->back()->with([
                 'success' => false,
                 'message' => 'Validation failed',
                 'errors' => $e->errors()
-            ], 422);
+            ]);
         } catch (\Exception $e) {
             Log::error('WebpageCredential UpdateMultipleFields Error', [
                 'error_message' => $e->getMessage(),
                 'error_trace' => $e->getTraceAsString()
             ]);
 
-            return response()->json([
+            return redirect()->back()->with([
                 'success' => false,
                 'message' => 'Update failed: ' . $e->getMessage()
-            ], 500);
+            ]);
         }
     }
 }

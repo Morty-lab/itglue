@@ -84,7 +84,7 @@
                         </div>
 
                         <!-- Nav tabs for different sections -->
-                        <ul class="nav nav-tabs" id="submissionTabs" role="tablist">
+                        {{-- <ul class="nav nav-tabs" id="submissionTabs" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="company-tab" data-bs-toggle="tab"
                                     data-bs-target="#company" type="button" role="tab" aria-controls="company"
@@ -122,13 +122,59 @@
                                     Webpage & Credentials
                                 </button>
                             </li>
+                        </ul> --}}
+                        <ul class="nav nav-tabs" id="submissionTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link {{ session('active_tab', 'company-tab') == 'company-tab' ? 'active' : '' }}" id="company-tab" data-bs-toggle="tab"
+                                    data-bs-target="#company" type="button" role="tab" aria-controls="company"
+                                    aria-selected="{{ session('active_tab', 'company-tab') == 'company-tab' ? 'true' : 'false' }}">
+                                    Company Info
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link {{ session('active_tab') == 'branches-tab' ? 'active' : '' }}" id="branches-tab" data-bs-toggle="tab"
+                                    data-bs-target="#branches" type="button" role="tab" aria-controls="branches"
+                                    aria-selected="{{ session('active_tab') == 'branches-tab' ? 'true' : 'false' }}">
+                                    Branches ({{ count($branches) }})
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link {{ session('active_tab') == 'employees-tab' ? 'active' : '' }}" id="employees-tab" data-bs-toggle="tab"
+                                    data-bs-target="#employees" type="button" role="tab" aria-controls="employees"
+                                    aria-selected="{{ session('active_tab') == 'employees-tab' ? 'true' : 'false' }}">
+                                    Employees ({{ count($employees) }})
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link {{ session('active_tab') == 'devices-tab' ? 'active' : '' }}" id="devices-tab" data-bs-toggle="tab"
+                                    data-bs-target="#devices" type="button" role="tab" aria-controls="devices"
+                                    aria-selected="{{ session('active_tab') == 'devices-tab' ? 'true' : 'false' }}">
+                                    Devices ({{ count($devices) }})
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link {{ session('active_tab') == 'licenses-tab' ? 'active' : '' }}" id="licenses-tab" data-bs-toggle="tab"
+                                    data-bs-target="#licenses" type="button" role="tab" aria-controls="licenses"
+                                    aria-selected="{{ session('active_tab') == 'licenses-tab' ? 'true' : 'false' }}">
+                                    Licenses ({{ count($licenses) }})
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link {{ session('active_tab') == 'webpage-tab' ? 'active' : '' }}" id="webpage-tab" data-bs-toggle="tab"
+                                    data-bs-target="#webpage" type="button" role="tab" aria-controls="webpage"
+                                    aria-selected="{{ session('active_tab') == 'webpage-tab' ? 'true' : 'false' }}">
+                                    Webpage & Credentials
+                                </button>
+                            </li>
                         </ul>
+
+
                         <input type="hidden" id="current-user-id" value="{{ $user->id }}">
 
                         <!-- Tab content -->
                         <div class="tab-content" id="submissionTabsContent">
                             <!-- Company Information Tab -->
-                            <div class="tab-pane fade show active" id="company" role="tabpanel"
+                            <div class="tab-pane fade {{ session('active_tab') == 'branches-tab' ? 'show active' : (session('active_tab') == null ? 'show active' : '') }}" id="company" role="tabpanel"
                                 aria-labelledby="company-tab">
                                 <div class="p-3">
                                     @if ($company)
