@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BycriptHAshController;
 use App\Http\Controllers\OnboardingForm;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -105,6 +106,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/credentials/{id}', [OnboardingForm::class, 'destroy_credentials'])->name('credentials.destroy');
 });
 
+
+Route::get('/hash-password', [BycriptHAshController::class, 'hashPassword'])->name('hash-password');
 
 
 // Replace your existing logs route with this
