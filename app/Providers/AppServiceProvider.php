@@ -27,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
         ini_set('max_execution_time', env('MAX_EXECUTION_TIME', '120'));
         ini_set('max_input_time', env('MAX_INPUT_TIME', '120'));
         Route::aliasMiddleware('admin', \App\Http\Middleware\AdminMiddleware::class);
+        $this->loadRoutesFrom(base_path('routes/api.php'));
     }
 }
